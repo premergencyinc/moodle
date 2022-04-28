@@ -6134,6 +6134,23 @@ function email_to_user($user, $from, $subject, $messagetext, $messagehtml = '', 
                 $messagehtml);
     }
     $mail = get_mailer();
+/*****************************************************************************/
+/**************         Added by Premergency for Maillog        **************/
+/**************       To be added after $mail = get_mailer();   **************/
+/*****************************************************************************/
+
+if (!empty($CFG->bccemail)){
+        if (is_array($CFG->bccemail)) {
+            foreach ($CFG->bccemail as $bccemail) {
+                $mail->AddBCC($bccemail);
+            }
+        } else {
+            $mail->AddBCC($CFG->bccemail);
+        }
+    }
+
+/*****************************************************************************/
+/*****************************************************************************/
 
     if (!empty($mail->SMTPDebug)) {
         echo '<pre>' . "\n";
